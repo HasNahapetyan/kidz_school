@@ -1,14 +1,16 @@
 package com.example.kidz_school.service.impl;
 
-import com.example.kidz_school.entity.OneTimePassword;
 import com.example.kidz_school.entity.User;
-import com.example.kidz_school.repository.OneTimePasswordRepository;
 import com.example.kidz_school.repository.UserRepository;
-import com.example.kidz_school.service.EmailService;
 import com.example.kidz_school.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import com.example.kidz_school.entity.OneTimePassword;
+import com.example.kidz_school.repository.OneTimePasswordRepository;
+import com.example.kidz_school.service.EmailService;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -18,10 +20,16 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
     private final EmailService emailService;
     private final OneTimePasswordRepository oneTimePasswordRepository;
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+
 
     @Override
     public void sendPasswordResetEmail(String email) {

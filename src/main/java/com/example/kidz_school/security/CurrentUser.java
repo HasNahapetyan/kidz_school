@@ -1,28 +1,25 @@
-package com.example.kidz_school.entity;
+package com.example.kidz_school.security;
 
-import jakarta.persistence.*;
+import com.example.kidz_school.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.List;
 
 @Data
-@Entity
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+public class CurrentUser {
     private Long id;
     private String firstName;
     private String lastName;
-    @Column(nullable = false,unique = true)
     private String email;
-    private String password;
     private String phone;
-    @Enumerated(EnumType.STRING)
     private Role role;
     private boolean enabled;
+    private List<SimpleGrantedAuthority> authorities;
 }

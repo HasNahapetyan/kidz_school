@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Top Bar-->
+<!-- d-none d-md-block -->
+<div th:fragment="topBar">
+
+    <div class=" bg-stone  top-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 d-none d-lg-block">
+                    <ul class="list-inline d-flex justify-content-xl-start align-items-center h-100 mb-0">
+                        <li>
+                    <span class="bg-primary icon-header me-xl-2">
+                      <i class="fas fa-envelope" aria-hidden="true"></i>
+                    </span>
+                            <a href="mailto:info@yourdomain.com" class="me-lg-4 me-xl-6 text-white opacity-80">info@yourdomain.com</a>
+                        </li>
+                        <li>
+                    <span class="bg-success icon-header me-xl-2">
+                      <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                    </span>
+                            <a href="tel:+1 234 567 8900" class="me-lg-4 me-xl-6 text-white opacity-80"> +1 234 567 8900 </a>
+                        </li>
+                        <li class="text-white">
+                    <span class="bg-pink icon-header">
+                      <i class="far fa-clock" aria-hidden="true"></i>
+                    </span>
+                            <span class="opacity-80">Open: 9am - 6pm</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-5">
+                    <ul class="list-inline d-flex mb-0 justify-content-xl-end justify-content-center align-items-center me-xl-2">
+                        <li>
+                    <span class="bg-info icon-header me-lg-0 me-xl-1">
+                      <i class="fas fa-globe" aria-hidden="true"></i>
+                    </span>
+                        </li>
+                        <li class="me-3 me-md-4 me-lg-3 me-xl-5 dropdown dropdown-sm">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"> Language </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="javascript:void(0)">English</a>
+                                <a class="dropdown-item" href="javascript:void(0)">Spanish</a>
+                                <a class="dropdown-item" href="javascript:void(0)">Hindi</a>
+                            </div>
+                        </li>
+
+                        <li class="text-white me-md-3 me-lg-2 me-xl-5">
+
+                            <div th:if="${currentUser}" >
+                                <a class="text-white font-weight-medium opacity-80" href="/myAccount"><div style="width: 30px; height: 30px; border-radius: 50%; background-color: #F0F0F0;
+   text-align: center; line-height: 30px; font-size: 20px; color: rgba(255,179,47,0.99);">
+                                    <span th:text="${#strings.substring(currentUser.firstName, 0, 1)}"></span></div>
+                               <b th:text="${currentUser.firstName}"></b> <b th:text="${currentUser.lastName}"></b>
+                                </a><span>  </span>
+                                <a href="/logout">Logout</a>
+                            </div>
+                            <div th:unless="${currentUser}">
+                    <span class="bg-purple icon-header me-1 me-md-2 me-lg-1 me-xl-2">
+                      <i class="fas fa-unlock-alt text-white font-size-13" aria-hidden="true"></i>
+                    </span>
+                                <a class="text-white font-weight-medium opacity-80" href="javascript:void(0)" data-bs-toggle="modal"
+                                   data-bs-target="#modal-login">
+                                    Login
+                                </a>
+                                <span class="text-white opacity-80">or</span>
+                                <a class="text-white font-weight-medium opacity-80" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modal-createAccount">Create
+                                    an account</a>
+                            </div>
+                        </li>
+
+                        <li class="cart-dropdown d-none d-md-block">
+                            <div class="cart-icon" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                <a href="javascript:void(0)">
+                        <span class="rounded-sm bg-pink icon-small icon-badge close-icon">
+                          <i class="fas fa-times text-white" aria-hidden="true"></i>
+                        </span>
+                                    <span class="rounded-sm bg-pink icon-small icon-badge shopping-icon">
+                          <i class="fas fa-shopping-basket text-white" aria-hidden="true"></i>
+                          <span class="badge bg-warning">3</span>
+                        </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <ul class="bg-white list-unstyled">
+                                    <li class="d-flex align-items-center">
+                                        <i class="fas fa-shopping-basket font-size-20 me-3" aria-hidden="true"></i>
+                                        <h3 class="text-capitalize font-weight-bold mb-0">3 items in your cart</h3>
+                                    </li>
+                                    <hr>
+                                    <li>
+                                        <a href="product-single.html">
+                                            <div class="media">
+                                                <div class="image">
+                                                    <img class="bg-light rounded-sm px-5 py-3 me-4" src="assets/img/products/product-sm.png" alt="cart-Image">
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h4 class="text-dark">Barbie Racing Car</h4>
+                                                        <span class="cancel">
+                                    <i class="fas fa-times text-muted" aria-hidden="true"></i>
+                                  </span>
+                                                    </div>
+                                                    <div class="price">
+                                                        <span class="text-primary font-weight-medium">$50</span>
+                                                    </div>
+                                                    <span class="text-muted font-weight-medium text-muted">Qnt: 1</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <hr>
+                                    </li>
+                                    <li>
+                                        <a href="product-single.html">
+                                            <div class="media">
+                                                <div class="image">
+                                                    <img class="bg-light rounded-sm px-5 py-3 me-4" src="assets/img/products/product-sm.png" alt="cart-Image">
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h4 class="text-dark">Barbie Racing Car</h4>
+                                                        <span class="cancel">
+                                    <i class="fas fa-times text-muted" aria-hidden="true"></i>
+                                  </span>
+                                                    </div>
+                                                    <div class="price">
+                                                        <span class="text-primary font-weight-medium">$50</span>
+                                                    </div>
+                                                    <span class="text-muted font-weight-medium">Qnt: 1</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <hr>
+                                    </li>
+                                    <li>
+                                        <a href="product-single.html">
+                                            <div class="media">
+                                                <div class="image">
+                                                    <img class="bg-light rounded-sm px-5 py-3 me-4" src="assets/img/products/product-sm.png" alt="cart-Image">
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h4 class="text-dark font-weight-bold">Barbie Racing Car</h4>
+                                                        <span class="cancel">
+                                    <i class="fas fa-times text-muted" aria-hidden="true"></i>
+                                  </span>
+                                                    </div>
+                                                    <div class="price">
+                                                        <span class="text-primary font-weight-medium">$50</span>
+                                                    </div>
+                                                    <span class="text-muted font-weight-medium">Qnt: 1</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <hr>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h3 class="cart-total font-weight-bold">Subtotal</h3>
+                                            <h3 class="cart-price font-weight-bold">$150</h3>
+                                        </div>
+                                        <div class="cart-button d-flex justify-content-between">
+                                            <button type="button" class="btn btn-danger text-uppercase px-4 shadow-sm me-3" onclick="location.href='product-checkout-step-1.html';">Checkout</button>
+                                            <button type="button" class="btn btn-danger text-uppercase px-4 shadow-sm" onclick="location.href='product-cart.html';">View
+                                                Cart</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
