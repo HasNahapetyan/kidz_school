@@ -1,0 +1,32 @@
+.reset-popup{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #000000a3;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+#reset-button{
+    cursor: pointer;
+}
+.reset-popup-form{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.reset-popup-child{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-height: 400px;
+}
+
