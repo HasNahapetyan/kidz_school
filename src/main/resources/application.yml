@@ -1,3 +1,9 @@
+platform:
+  security:
+    jwt:
+      issuer: kidzSchool
+      expiration: 30 #minutes
+      secretKey: your256bitsecretkeyyour256bitsecretkey
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/kidz_school
