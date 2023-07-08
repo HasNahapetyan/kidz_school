@@ -4,6 +4,9 @@ platform:
       issuer: kidzSchool
       expiration: 30 #minutes
       secretKey: your256bitsecretkeyyour256bitsecretkey
+    confirmation-token:
+      expiration: 60 #minutes
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/kidz_school
@@ -28,3 +31,5 @@ spring:
             enable: true
             required: true
 
+site:
+  url: http://localhost:8080

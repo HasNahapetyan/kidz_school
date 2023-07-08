@@ -2129,44 +2129,7 @@
     </div>
 
     <!-- Modal Create Account -->
-    <div class="modal fade bd-example-modal-sm" id="modal-createAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-          <div class="mb-4 mb-sm-0">
-            <div class="bg-warning rounded-top p-2">
-              <h4 class="text-white mb-0 ms-2">Create An Account</h4>
-            </div>
-            <div class="border rounded-bottom border-top-0">
-              <div class="p-3">
-                <form action="index-v4.html#" method="POST" role="form">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Name" required="">
-                  </div>
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="User name" required="">
-                  </div>
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Phone" required="">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Re-Password" required="">
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" class="btn btn-danger text-uppercase shadow w-100" value="Register">
-                  </div>
-                  <div class="form-group text-center mb-0">
-                    <p class="mb-0">Allready have an account? <a class="text-danger" href="javascript:void(0)">Log in</a></p>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div th:insert="~{fragment/modal-sign-up::sign-up}"></div>
 
     <!-- Modal Enroll -->
     <div class="modal fade" id="modal-enrolAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

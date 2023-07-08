@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Unauthorized</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1, p {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1 >Unauthorized</h1><br>
+<p th:text="${message}"></p>
+<p>Your request is unauthorized. Please check your credentials or contact the administrator for assistance.</p>
+</body>
+</html>
