@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User already exists</title>
+    <style>
+        div {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="form-group text-center text-secondary mb-0">
+    <div th:if="${email}" class="text-danger" >
+        <span>User with
+                      <b th:text="${email}"></b>
+          email already exists.</span>
+    </div>
+</div>
+</body>
+</html>

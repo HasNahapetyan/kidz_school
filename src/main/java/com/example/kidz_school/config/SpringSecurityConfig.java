@@ -30,6 +30,7 @@ public class SpringSecurityConfig {
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/loginEndpoint").permitAll()
                         .requestMatchers(HttpMethod.POST, "/loginEndpoint").permitAll()
+                        .requestMatchers("/user/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic()
                 .and()

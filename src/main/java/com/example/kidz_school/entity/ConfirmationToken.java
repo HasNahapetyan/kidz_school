@@ -2,7 +2,9 @@ package com.example.kidz_school.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.time.LocalDateTime;
+
 @Data
 @Entity
 public class ConfirmationToken {

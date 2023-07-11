@@ -1,21 +1,21 @@
 package com.example.kidz_school.service.impl;
 
+import com.example.kidz_school.entity.OneTimePassword;
 import com.example.kidz_school.entity.User;
+import com.example.kidz_school.repository.OneTimePasswordRepository;
 import com.example.kidz_school.repository.UserRepository;
+import com.example.kidz_school.service.EmailService;
 import com.example.kidz_school.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import com.example.kidz_school.entity.OneTimePassword;
-import com.example.kidz_school.repository.OneTimePasswordRepository;
-import com.example.kidz_school.service.EmailService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +23,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final EmailService emailService;
     private final OneTimePasswordRepository oneTimePasswordRepository;
+    @Value("${site.url}")
+    private String siteUrl;
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
-
 
     @Override
     public void sendPasswordResetEmail(String email) {
@@ -66,6 +66,22 @@ public class UserServiceImpl implements UserService {
         }
         user.setPassword(newPassword);
         oneTimePasswordRepository.deleteByEmailEqualsIgnoreCase(email);
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void sendVerificationMassage(User user, UUID uuid) {
+        String messageBody = new StringBuilder().append("Hi ")
+                .append(user.getFirstName())
+                .append("\n Please verify your email by clicking on this url: ")
+                .append(siteUrl)
+                .append("/user/verify?token=")
+                .append(uuid).toString();
+        emailService.sendEmail(user.getEmail(), "Welcome", messageBody);
     }
 
     private String generateOtp() {
