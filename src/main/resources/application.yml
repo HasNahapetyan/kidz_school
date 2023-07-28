@@ -31,5 +31,11 @@ spring:
             enable: true
             required: true
 
+  liquibase:
+    change-log: classpath:/liquibase/changelog.xml
+
 site:
   url: http://localhost:8080
+
+springdoc:
+  packages-to-scan: com.example.kidz_school.controller

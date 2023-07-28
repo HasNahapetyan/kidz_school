@@ -1,0 +1,212 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+<changeSet id="createTables" author="kidzSchool">
+    <sql>create table if not exists course
+    (
+        available_seats    int          not null,
+        course_duration    int          not null,
+        max_enrollment_age int          not null,
+        min_enrollment_age int          not null,
+        price              double       not null,
+        start_date         date         null,
+        id                 bigint auto_increment
+        primary key,
+        description        varchar(255) null,
+        title              varchar(255) null
+        );
+
+    create table if not exists course_schedule
+    (
+        id       bigint auto_increment
+        primary key,
+        week_day enum ('FRIDAY', 'MONDAY', 'SATURDAY', 'SUNDAY', 'THURSDAY', 'TUESDAY', 'WEDNESDAY') null
+        );
+
+    create table if not exists course_course_schedules
+    (
+        course_id           bigint not null,
+        course_schedules_id bigint not null,
+        constraint UK_8x1x4eu26lp1smifab09208cu
+        unique (course_schedules_id),
+        constraint FK2tljj45hn36tb2nr2x6nohaju
+        foreign key (course_id) references course (id),
+        constraint FKd2ecbd89a567d0sa4839qvsbt
+        foreign key (course_schedules_id) references course_schedule (id)
+        );
+
+    create table if not exists event
+    (
+        price          double       not null,
+        ends_at        datetime(6)  null,
+        id             bigint auto_increment
+        primary key,
+        starts_at      datetime(6)  null,
+        address        varchar(255) null,
+        contact_number varchar(255) null,
+        description    varchar(255) null,
+        image          varchar(255) null,
+        title          varchar(255) null
+        );
+
+    create table if not exists faq
+    (
+        id       bigint auto_increment
+        primary key,
+        answer   varchar(255) null,
+        question varchar(255) null
+        );
+
+    create table if not exists news
+    (
+        created_at  datetime(6)                                                                  null,
+        id          bigint auto_increment
+        primary key,
+        category    enum ('CHILDREN', 'EDUCATION', 'KINDERGARTEN', 'PLAYGROUND', 'POST_FORMATS') null,
+        created_by  varchar(255)                                                                 null,
+        description varchar(255)                                                                 null,
+        image       varchar(255)                                                                 null,
+        title       varchar(255)                                                                 null
+        );
+
+    create table if not exists question
+    (
+        id           bigint auto_increment
+        primary key,
+        message      varchar(255) null,
+        sender_email varchar(255) null,
+        sender_name  varchar(255) null
+        );
+
+    create table if not exists session
+    (
+        meals              int                                    not null,
+        medical_assistance bit                                    not null,
+        price              double                                 not null,
+        transportation     bit                                    not null,
+        id                 bigint auto_increment
+        primary key,
+        activity           varchar(255)                           null,
+        session_type       enum ('FULL_DAY', 'MORNING', 'WEEKLY') null
+        );
+
+    create table if not exists subject
+    (
+        ends_at   datetime(6)  null,
+        id        bigint auto_increment
+        primary key,
+        starts_at datetime(6)  null,
+        name      varchar(255) null
+        );
+
+    create table if not exists course_schedule_subjects
+    (
+        course_schedule_id bigint not null,
+        subjects_id        bigint not null,
+        constraint UK_4i7l6ue9b4gipvwlpce5y1dkd
+        unique (subjects_id),
+        constraint FK2ov7ip24i746cwubgkae3uo70
+        foreign key (subjects_id) references subject (id),
+        constraint FKt1krylwda8uqkwa4qhtokxsy6
+        foreign key (course_schedule_id) references course_schedule (id)
+        );
+
+    create table if not exists teacher
+    (
+        id          bigint auto_increment
+        primary key,
+        about_me    varchar(255) null,
+        degree      varchar(255) null,
+        designation varchar(255) null,
+        experience  varchar(255) null,
+        first_name  varchar(255) null,
+        image       varchar(255) null,
+        last_name   varchar(255) null
+        );
+
+    create table if not exists user
+    (
+        enabled    bit                    not null,
+        id         bigint auto_increment
+        primary key,
+        email      varchar(255)           null,
+        first_name varchar(255)           null,
+        last_name  varchar(255)           null,
+        password   varchar(255)           null,
+        phone      varchar(255)           null,
+        role       enum ('ADMIN', 'USER') null
+        );
+
+    create table if not exists comment
+    (
+        created_at datetime(6)  null,
+        id         bigint auto_increment
+        primary key,
+        news_id    bigint       null,
+        user_id    bigint       null,
+        message    varchar(255) null,
+        constraint FK8kcum44fvpupyw6f5baccx25c
+        foreign key (user_id) references user (id),
+        constraint FKnxm8x9npdhuwxv2x2wxsghm17
+        foreign key (news_id) references news (id)
+        );
+
+    create table if not exists confirmation_token
+    (
+        expires_at datetime(6)  null,
+        id         bigint auto_increment
+        primary key,
+        user_id    bigint       null,
+        token      varchar(255) null,
+        constraint UK_3rtt9efhavjo2dfx9f763sypm
+        unique (user_id),
+        constraint FKhjrtky9wbd6lbk7mu9tuddqgn
+        foreign key (user_id) references user (id)
+        );
+
+    create table if not exists reply
+    (
+        created_at        datetime(6)  null,
+        id                bigint auto_increment
+        primary key,
+        parent_comment_id bigint       null,
+        user_id           bigint       null,
+        message           varchar(255) null,
+        constraint FKapyyxlgntertu5okpkr685ir9
+        foreign key (user_id) references user (id),
+        constraint FKp6nsf2t04t6fnhhdie8saxnl5
+        foreign key (parent_comment_id) references comment (id)
+        );
+
+    create table if not exists comment_replies
+    (
+        comment_id bigint not null,
+        replies_id bigint not null,
+        constraint UK_107vee447mhtsxghw5bigtv9l
+        unique (replies_id),
+        constraint FK9eka2pjxubgmpdx3qqfsvfack
+        foreign key (comment_id) references comment (id),
+        constraint FKjvxanbe88emm88v7j1tr11k1i
+        foreign key (replies_id) references reply (id)
+        );
+
+    </sql>
+</changeSet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</databaseChangeLog>

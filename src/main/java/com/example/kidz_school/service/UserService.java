@@ -1,6 +1,8 @@
 package com.example.kidz_school.service;
 
 import com.example.kidz_school.entity.User;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.ui.Model;
 
 import java.util.UUID;
 
@@ -15,5 +17,11 @@ public interface UserService {
 
     User save(User user);
 
-    void sendVerificationMassage(User user, UUID uuid);
+    void sendVerificationEmail(User user, UUID uuid);
+
+    User findById(Long id);
+
+    void editUserDetails(String firstName, String lastName, String email, Long currentUserId, User userByNewEmail, HttpSession session);
+
+    boolean verifyEmail(UUID uuid, Model model);
 }

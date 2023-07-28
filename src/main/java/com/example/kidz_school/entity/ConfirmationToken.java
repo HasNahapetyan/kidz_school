@@ -12,7 +12,7 @@ public class ConfirmationToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String token;
-    @OneToOne
+    @ManyToOne
     private User user;
     private LocalDateTime expiresAt;
 }
