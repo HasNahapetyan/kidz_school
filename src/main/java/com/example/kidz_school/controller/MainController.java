@@ -7,7 +7,9 @@ import com.example.kidz_school.service.impl.JwtServiceImpl;
 import com.example.kidz_school.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,8 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Optional;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class MainController {
@@ -47,7 +48,8 @@ public class MainController {
     }
 
     @PostMapping("/loginEndpoint")
-    public String customLogin(@ModelAttribute AuthRequestDto authRequestDto, HttpServletResponse response, HttpSession session) {
+    public String customLogin(@Valid @ModelAttribute AuthRequestDto authRequestDto, HttpServletResponse response, HttpSession session){
+        log.info("User attempt to login with email: {}", authRequestDto.getEmail());
         User userByEmail = userService.findByEmail(authRequestDto.getEmail());
         if (userByEmail==null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -58,6 +60,7 @@ public class MainController {
         } else {
             String token = jwtService.generateToken(userByEmail);
             session.setAttribute("AuthorizationToken", "Bearer " + token);
+            log.info("User logged in with email: {}", authRequestDto.getEmail());
             return "redirect:/";
         }
         return "redirect:/loginEndpoint";

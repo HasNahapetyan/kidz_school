@@ -6,11 +6,11 @@ import lombok.Data;
 @Data
 public class UserRegistrationRequestDto {
     @NotBlank(message = "First name is required")
-    @Size(min = 3, max = 15, message = "First name must be between 3 and 10 characters")
+    @Size(min = 3, max = 15, message = "First name must be between 3 and 15 characters")
     private String firstName;
 
     @NotBlank(message = "Last name is required")
-    @Size(min = 3, max = 15, message = "Last name must be between 3 and 10 characters")
+    @Size(min = 3, max = 15, message = "Last name must be between 3 and 15 characters")
     private String lastName;
 
     @NotBlank(message = "Email is required")

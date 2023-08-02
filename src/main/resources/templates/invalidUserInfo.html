@@ -13,7 +13,8 @@
 <h1>Invalid user data</h1><br>
 <p>
 <ul>
-    <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
+    <li th:if="${message}" th:text="${message}"></li>
+    <li th:if="${errors}" th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
 </ul>
 </p>
 </body>

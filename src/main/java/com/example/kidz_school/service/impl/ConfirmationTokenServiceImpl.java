@@ -43,7 +43,7 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
     }
 
     @Transactional
-    @Scheduled(cron = "0 */20 * * * *") //every hour
+    @Scheduled(cron = "0 */20 * * * *") //every 20 minutes
     public void deleteExpiredTokens() {
         confirmationTokenRepository.removeByExpiresAtBefore(LocalDateTime.now());
     }
